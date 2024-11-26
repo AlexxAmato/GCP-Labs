@@ -1,10 +1,10 @@
 # This code is compatible with Terraform 4.25.0 and versions that are backwards compatible to 4.25.0.
 # For information about validating this Terraform code, see https://developer.hashicorp.com/terraform/tutorials/gcp-get-started/google-cloud-platform-build#format-and-validate-the-configuration
 
-resource "google_compute_instance" "instance-20241125-221402" {
+resource "<your resource>" "instance <name>" {
   boot_disk {
     auto_delete = true
-    device_name = "instance-20241125-221402"
+    device_name = "instance <name>"
 
     initialize_params {
       image = "projects/ubuntu-os-cloud/global/images/ubuntu-2004-focal-v20241115"
@@ -33,7 +33,7 @@ resource "google_compute_instance" "instance-20241125-221402" {
 
     queue_count = 0
     stack_type  = "IPV4_ONLY"
-    subnetwork  = "projects/eve-ng-437423/regions/us-west1/subnetworks/default"
+    subnetwork  = "<your project>"
   }
 
   scheduling {
@@ -44,7 +44,7 @@ resource "google_compute_instance" "instance-20241125-221402" {
   }
 
   service_account {
-    email  = "345084327521-compute@developer.gserviceaccount.com"
+    email  = ""
     scopes = ["https://www.googleapis.com/auth/devstorage.read_only", "https://www.googleapis.com/auth/logging.write", "https://www.googleapis.com/auth/monitoring.write", "https://www.googleapis.com/auth/service.management.readonly", "https://www.googleapis.com/auth/servicecontrol", "https://www.googleapis.com/auth/trace.append"]
   }
 
