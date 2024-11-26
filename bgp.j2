@@ -1,0 +1,12 @@
+router bgp {{ local_as }}
+  neighbor {{ neighbor_ip }} remote-as {{ neighbor_as }}
+  {% if next_hop_self %}
+  neighbor {{ neighbor_ip }} next-hop-self
+  {% endif %}
+  {% if update_source %}
+  neighbor {{ neighbor_ip }} update-source {{ update_source }}
+  {% endif %}
+  {% for network in advertised_networks %}
+  network {{ network }}
+  {% endfor %}
+
