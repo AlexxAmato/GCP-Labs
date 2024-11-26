@@ -41,6 +41,7 @@ resource "<your resource>" "instance <name>" {
     on_host_maintenance = "MIGRATE"
     preemptible         = false
     provisioning_model  = "STANDARD"
+    enable_nested_virtualization = true
   }
 
   service_account {
