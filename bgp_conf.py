@@ -1,38 +1,18 @@
-from jinja2 import Template
+import yaml
+from jinja2 import Environment, FileSystemLoader
 
-# Load the Jinja2 template
-bgp_template = """
-router bgp {{ local_as }}
-  neighbor {{ neighbor_ip }} remote-as {{ neighbor_as }}
-  {% if next_hop_self %}
-  neighbor {{ neighbor_ip }} next-hop-self
-  {% endif %}
-  {% if update_source %}
-  neighbor {{ neighbor_ip }} update-source {{ update_source }}
-  {% endif %}
-  {% for network in advertised_networks %}
-  network {{ network }}
-  {% endfor %}
-"""
+# Load data from the YAML file
+with open('bgp_vars.yml', 'r') as file:
+    data = yaml.safe_load(file)
 
-# Define the data for the template
-data = {
-    "local_as": 10,
-    "neighbor_ip": "1.1.1.10",
-    "neighbor_as": 22,
-    "next_hop_self": True,
-    "update_source": "Ethernet1",
-    "advertised_networks": [
-        "10.1.1.0/24",
-        "10.1.2.0/24",
-        "10.1.3.0/24",
-        "10.1.4.0/24"
-    ]
-}
+# Set up the Jinja2 environment and load the template
+env = Environment(loader=FileSystemLoader('.'))  # The '.' points to the current directory
+template = env.get_template('bgp.j2')  # Reference the Jinja2 template file
 
 # Render the template
-template = Template(bgp_template)
 rendered_config = template.render(data)
 
+# Print the rendered configuration
 print(rendered_config)
+
 
